@@ -30,21 +30,57 @@ const Persona = require("./clases/Persona.js");
         // const listadoPersonas = [
         //     { rut: "44.444.444-4", nombre: "Juan", apellido:"Gutierrez"},
         //     { rut: "55.555.555-5", nombre: "Mónica", apellido:"Alvarado"},
-        //     { rut: "66.666.666-6", nombre: "Luis", apellido:"Parra"}
+        //     // { rut: "66.666.666-6", nombre: "Luis", apellido:"Parra"}
         // ]
         // await Persona.bulkCreate(listadoPersonas)
 
 
 
         // Método findAll para consultar varios registros de la tabla
-        const listadoCompleto = await Persona.findAll({ raw: true})
-        const listadoOrdenado = await Persona.findAll({ raw: true, 
-                order:[
-                    ["rut","ASC"],
-                    // ["nombre","ASC"]
-                ]
+        // const listadoCompleto = await Persona.findAll({ raw: true})
+        // const listadoOrdenado = await Persona.findAll({ raw: true, 
+        //         order:[
+        //             ["rut","ASC"],
+        //             // ["nombre","ASC"]
+        //         ]
+        // })
+        // console.table(listadoOrdenado);
+
+        // Método findByPK para consultar condicionando por la clave primaria
+        const consulta1 = await Persona.findByPk(2)
+        if(consulta1) {
+            // console.log(consulta1.get({ plain: true}));
+        }
+
+        // Método findOne para consultar 1 registro
+        const consulta2 = await Persona.findOne({ 
+            // where: {
+            //     id: 1
+            // },
+            order: [
+                ["rut","ASC"]
+            ]
         })
-        console.table(listadoOrdenado);
+        if(consulta2){
+            // console.log(consulta2.get({ plain: true}));
+        }
+
+
+        // Método update para modificar registros
+        // await Persona.update({ nombre: "Mónica", apellido: "Alvarez"}, 
+        //     { 
+        //         where: {
+        //             id: 13
+        //         }
+        //     }
+        // )
+
+        // Método destroy para eliminar registros
+        await Persona.destroy({ 
+            where: {
+                id: 13
+            }
+        })
 
 
         console.log("Ejecución exitosa")
